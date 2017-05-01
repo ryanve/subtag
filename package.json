@@ -4,15 +4,14 @@
   "description": "Language tag parser",
   "author": "Ryan Van Etten",
   "license": "ISC",
-  "main": "main.js",
-  "module": "module.js",
+  "main": "subtag.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "npm run build",
-    "build": "rollup --format umd --name \"subtag\" -- module.js > main.js",
-    "lint": "eslint . --ext .js --ignore-pattern main.js",
+    "start": "npm install",
+    "poststart": "npm test",
+    "lint": "eslint . --ext .js",
+    "prepublish": "npm test",
     "preversion": "npm test",
-    "pretest": "npm run build && npm run lint",
+    "pretest": "npm run lint",
     "test": "node test.js"
   },
   "repository": {
@@ -28,15 +27,18 @@
     "subtags",
     "language",
     "languages",
+    "javascript",
     "translation",
-    "internationalization"
+    "localization",
+    "localisation",
+    "internationalization",
+    "internationalisation"
   ],
   "bugs": {
     "url": "https://github.com/ryanve/subtag/issues"
   },
   "homepage": "https://github.com/ryanve/subtag",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "rollup": "^0.41.6"
+    "eslint": "^3.19.0"
   }
 }

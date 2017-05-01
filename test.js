@@ -7,12 +7,12 @@
       if (api.extlang(object.tag) !== object.extlang) throw new Error('Fail: extlang for ' + object.tag)
       if (api.script(object.tag) !== object.script) throw new Error('Fail: script for ' + object.tag)
       if (api.region(object.tag) !== object.region) throw new Error('Fail: region for ' + object.tag)
-      if (api.language(object.tag) !== api.parse(object.tag).language) throw new Error('Fail: language() for ' + object.tag)
-      if (api.extlang(object.tag) !== api.parse(object.tag).extlang) throw new Error('Fail: extlang() for ' + object.tag)
-      if (api.script(object.tag) !== api.parse(object.tag).script) throw new Error('Fail: script() for ' + object.tag)
-      if (api.region(object.tag) !== api.parse(object.tag).region) throw new Error('Fail: region() for ' + object.tag)
+      if (api.language(object.tag) !== api(object.tag).language) throw new Error('Fail: language() for ' + object.tag)
+      if (api.extlang(object.tag) !== api(object.tag).extlang) throw new Error('Fail: extlang() for ' + object.tag)
+      if (api.script(object.tag) !== api(object.tag).script) throw new Error('Fail: script() for ' + object.tag)
+      if (api.region(object.tag) !== api(object.tag).region) throw new Error('Fail: region() for ' + object.tag)
     } catch(e) {
-      console.warn('parse:', object.tag, JSON.stringify(api.parse(object.tag)))
+      console.warn('parse:', object.tag, JSON.stringify(api(object.tag)))
       throw e
     }
     console.log('Pass: ', object.tag)
@@ -88,6 +88,13 @@
       extlang: 'you',
       script: '',
       region: '007'
+    },
+    {
+      tag: 'en-90210',
+      language: 'en',
+      extlang: '',
+      script: '',
+      region: ''
     },
     {
       tag: 'zh-Hans',

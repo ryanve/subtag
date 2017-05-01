@@ -1,43 +1,43 @@
 # subtag
 [Language tag](https://www.w3.org/International/articles/language-tags/) parser. Parse language tags into subtags.
 
-## methods
-
-- <b>`language(tag)`</b> get [primary language subtag](https://www.w3.org/International/articles/language-tags/#language)
-- <b>`extlang(tag)`</b> get [extended language subtag](https://www.w3.org/International/articles/language-tags/#extlang)
-- <b>`script(tag)`</b> get [script subtag](https://www.w3.org/International/articles/language-tags/#script)
-- <b>`region(tag)`</b> get [region subtag](https://www.w3.org/International/articles/language-tags/#region)
+## api
+- <b>`subtag(tag)`</b> parse tag into [subtags object](#examples)
+- <b>`subtag.language(tag)`</b> get [primary language subtag](https://www.w3.org/International/articles/language-tags/#language)
+- <b>`subtag.extlang(tag)`</b> get [extended language subtag](https://www.w3.org/International/articles/language-tags/#extlang)
+- <b>`subtag.script(tag)`</b> get [script subtag](https://www.w3.org/International/articles/language-tags/#script)
+- <b>`subtag.region(tag)`</b> get [region subtag](https://www.w3.org/International/articles/language-tags/#region)
 
 ### notes
-- Methods return an empty string for unpresent subtags
-- Methods support dashes (standard) and underscores (for convenience)
+- parsing is done via regex
+- unpresent subtags will be an empty string
+- separator can be dashes (standard) or underscores
 
 ## setup
 ### install via npm or yarn
 ```
 npm install subtag --save
 ```
+
 ```
 yarn add subtag
 ```
 
 ## usage
+### `require` usage
+```js
+var subtag = require('subtag')
+```
 
 ### `import` usage
-
-#### only import methods you need
-
-```
-import { language, region } from 'subtag'
-
-language('en-US') // 'en'
-region('en-US') // 'US'
+```js
+import subtag from 'subtag'
 ```
 
-### `require` usage
-
-```
-var subtag = require('subtag')
+### examples
+```js
+subtag('ja-JP') // {language: 'ja', extlang: '', script: '', region: 'JP'}
+subtag('es-AR') // {language: 'es', extlang: '', script: '', region: 'AR'}
 
 subtag.language('en') // 'en'
 subtag.extlang('en') // ''
@@ -90,3 +90,20 @@ subtag.region('zh-Hans') // ''
   <td>uppercase</td>
 </tr>
 </table>
+
+### `.pattern`
+Regex patterns are exposed for validation
+
+```js
+subtag.language.pattern.test('en') // true
+subtag.language.pattern.test('ast') // true
+subtag.language.pattern.test('fake') // false
+subtag.extlang.pattern.test('yue') // true
+subtag.script.pattern.test('Hans') // true
+subtag.region.pattern.test('US') // true
+subtag.region.pattern.test('005') // true
+subtag.region.pattern.test('90210') // false
+```
+
+## compatibility
+Works in Node.js and ES5+ browsers
