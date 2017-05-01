@@ -2,10 +2,19 @@
   var api = require('./')
 
   function test(object) {
-    if (api.language(object.tag) !== object.language) throw new Error('Fail: language for ' + object.tag)
-    if (api.extlang(object.tag) !== object.extlang) throw new Error('Fail: extlang for ' + object.tag)
-    if (api.region(object.tag) !== object.region) throw new Error('Fail: region for ' + object.tag)
-    if (api.script(object.tag) !== object.script) throw new Error('Fail: script for ' + object.tag)
+    try {
+      if (api.language(object.tag) !== object.language) throw new Error('Fail: language for ' + object.tag)
+      if (api.extlang(object.tag) !== object.extlang) throw new Error('Fail: extlang for ' + object.tag)
+      if (api.script(object.tag) !== object.script) throw new Error('Fail: script for ' + object.tag)
+      if (api.region(object.tag) !== object.region) throw new Error('Fail: region for ' + object.tag)
+      if (api.language(object.tag) !== api.parse(object.tag).language) throw new Error('Fail: language() for ' + object.tag)
+      if (api.extlang(object.tag) !== api.parse(object.tag).extlang) throw new Error('Fail: extlang() for ' + object.tag)
+      if (api.script(object.tag) !== api.parse(object.tag).script) throw new Error('Fail: script() for ' + object.tag)
+      if (api.region(object.tag) !== api.parse(object.tag).region) throw new Error('Fail: region() for ' + object.tag)
+    } catch(e) {
+      console.warn('parse:', object.tag, JSON.stringify(api.parse(object.tag)))
+      throw e
+    }
     console.log('Pass: ', object.tag)
   }
 
@@ -14,85 +23,127 @@
       tag: '',
       language: '',
       extlang: '',
-      region: '',
-      script: ''
+      script: '',
+      region: ''
     },
     {
       tag: 'ast',
       language: 'ast',
       extlang: '',
+      script: '',
       region: '',
-      script: ''
     },
     {
       tag: 'en',
       language: 'en',
       extlang: '',
-      region: '',
-      script: ''
+      script: '',
+      region: ''
     },
     {
       tag: 'en-US',
       language: 'en',
       extlang: '',
-      region: 'US',
-      script: ''
+      script: '',
+      region: 'US'
     },
     {
-      tag: 'kam_KE',
+      tag: 'kam-KE',
       language: 'kam',
       extlang: '',
-      region: 'KE',
-      script: ''
+      script: '',
+      region: 'KE'
     },
     {
-      tag: 'gsw_LI',
+      tag: 'gsw-LI',
       language: 'gsw',
       extlang: '',
-      region: 'LI',
-      script: ''
+      script: '',
+      region: 'LI'
     },
     {
       tag: 'es-005',
       language: 'es',
       extlang: '',
-      region: '005',
-      script: ''
+      script: '',
+      region: '005'
     },
     {
       tag: 'zh-yue',
       language: 'zh',
       extlang: 'yue',
-      region: '',
-      script: ''
+      script: '',
+      region: ''
+    },
+    {
+      tag: 'is-red-OK',
+      language: 'is',
+      extlang: 'red',
+      script: '',
+      region: 'OK'
+    },
+    {
+      tag: 'are-you-007',
+      language: 'are',
+      extlang: 'you',
+      script: '',
+      region: '007'
     },
     {
       tag: 'zh-Hans',
       language: 'zh',
       extlang: '',
-      region: '',
-      script: 'Hans'
+      script: 'Hans',
+      region: ''
     },
     {
       tag: 'zh-Hant-HK',
       language: 'zh',
       extlang: '',
-      region: 'HK',
-      script: 'Hant'
+      script: 'Hant',
+      region: 'HK'
     },
     {
-      tag: 'pa_Guru_IN',
+      tag: 'is-This-007',
+      language: 'is',
+      extlang: '',
+      script: 'This',
+      region: '007'
+    },
+    {
+      tag: 'pa-Guru-IN',
       language: 'pa',
       extlang: '',
-      region: 'IN',
-      script: 'Guru'
+      script: 'Guru',
+      region: 'IN'
+    },
+    {
+      tag: 'is-the-Expr',
+      language: 'is',
+      extlang: 'the',
+      script: 'Expr',
+      region: ''
+    },
+    {
+      tag: 'is-the-Expr-OK',
+      language: 'is',
+      extlang: 'the',
+      script: 'Expr',
+      region: 'OK'
+    },
+    {
+      tag: 'is-the-case-007',
+      language: 'is',
+      extlang: 'the',
+      script: 'case',
+      region: '007'
     }
   ]
 
   tests.forEach(test)
   tests.map(function(o) {
     o = Object.assign({}, o)
-    o.tag = o.tag.replace('-', '_')
+    o.tag = o.tag.replace(/[_-]+/g, '_')
     return o
   }).forEach(test)
 
