@@ -14,7 +14,7 @@
     return match(tag).filter(function(v, i) { return v && i })
   }
 
-  function parse(tag) {
+  function api(tag) {
     tag = match(tag)
     return {
       language: tag[1] || empty,
@@ -36,7 +36,7 @@
       return match(tag)[position] || empty
     }
     expose(method, 'pattern', pattern)
-    expose(parse, type, method)
+    expose(api, type, method)
   }
 
   part(1, /^[a-zA-Z]{2,3}$/, 'language')
@@ -44,7 +44,7 @@
   part(3, /^[a-zA-Z]{4}$/, 'script')
   part(4, /^[a-zA-Z]{2}$|^[0-9]{3}$/, 'region')
 
-  expose(parse, 'split', split)
+  expose(api, 'split', split)
 
-  return parse
+  return api
 });
