@@ -1,8 +1,15 @@
 !function() {
   var api = require('./')
+  var dash = '-'
+  var score = '_'
+
+  function format(s, glue) {
+    return s.replace(/[_-]+/g, glue)
+  }
 
   function test(object) {
     try {
+      if (api.split(object.tag).join(dash) !== object.valid) throw new Error('Fail: split() for ' + object.tag)
       if (api.language(object.tag) !== object.language) throw new Error('Fail: language for ' + object.tag)
       if (api.extlang(object.tag) !== object.extlang) throw new Error('Fail: extlang for ' + object.tag)
       if (api.script(object.tag) !== object.script) throw new Error('Fail: script for ' + object.tag)
@@ -90,6 +97,7 @@
       region: '007'
     },
     {
+      valid: 'en',
       tag: 'en-90210',
       language: 'en',
       extlang: '',
@@ -145,12 +153,15 @@
       script: 'case',
       region: '007'
     }
-  ]
+  ].map(function(o) {
+    if (!o.hasOwnProperty('valid')) o.valid = format(o.tag, dash)
+    return o
+  })
 
   tests.forEach(test)
   tests.map(function(o) {
     o = Object.assign({}, o)
-    o.tag = o.tag.replace(/[_-]+/g, '_')
+    o.tag = format(o.tag, score)
     return o
   }).forEach(test)
 
