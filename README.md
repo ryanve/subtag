@@ -1,8 +1,10 @@
+
 # subtag
 [Language tag](https://www.w3.org/International/articles/language-tags/) parser. Parse language tags into subtags.
 
 ## api
-- <b>`subtag(tag)`</b> parse tag into [subtags object](#examples)
+- <b>`subtag(tag)`</b> parse tag into [subtags object](#objects)
+- <b>`subtag.split(tag)`</b> split tag into [subtags array](#arrays)
 - <b>`subtag.language(tag)`</b> get [primary language subtag](https://www.w3.org/International/articles/language-tags/#language)
 - <b>`subtag.extlang(tag)`</b> get [extended language subtag](https://www.w3.org/International/articles/language-tags/#extlang)
 - <b>`subtag.script(tag)`</b> get [script subtag](https://www.w3.org/International/articles/language-tags/#script)
@@ -35,10 +37,26 @@ import subtag from 'subtag'
 ```
 
 ### examples
+
+#### objects
+
 ```js
 subtag('ja-JP') // {language: 'ja', extlang: '', script: '', region: 'JP'}
 subtag('es-AR') // {language: 'es', extlang: '', script: '', region: 'AR'}
+```
 
+#### arrays
+
+```js
+subtag.split('yue') // ["yue"]
+subtag.split('es-419') // ["es", "419"]
+subtag.split('zh-Hant-HK') // ["zh", "Hant", "HK"]
+subtag.split('en-90210') // ["en"] because 90210 is fake
+```
+
+#### subtags
+
+```js
 subtag.language('en') // 'en'
 subtag.extlang('en') // ''
 subtag.script('en') // ''

@@ -10,6 +10,10 @@
     return tag.match(pattern) || []
   }
 
+  function split(tag) {
+    return match(tag).filter(function(v, i) { return v && i })
+  }
+
   function parse(tag) {
     tag = match(tag)
     return {
@@ -39,6 +43,8 @@
   part(2, /^[a-zA-Z]{3}$/, 'extlang')
   part(3, /^[a-zA-Z]{4}$/, 'script')
   part(4, /^[a-zA-Z]{2}$|^[0-9]{3}$/, 'region')
+
+  expose(parse, 'split', split)
 
   return parse
 });
