@@ -9,7 +9,7 @@
     "start": "npm install",
     "poststart": "npm test",
     "lint": "eslint . --ext .js",
-    "prepublish": "npm test",
+    "prepublishOnly": "npm test",
     "preversion": "npm test",
     "pretest": "npm run lint",
     "test": "node test.js"
