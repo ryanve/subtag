@@ -39,6 +39,6 @@
   },
   "homepage": "https://github.com/ryanve/subtag",
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^4.3.0"
   }
 }
